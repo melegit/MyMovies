@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import mobi.mele.mymovies.databinding.ViewMovieItemBinding
+import mobi.mele.mymovies.model.Movie
 
 class MoviesAdapter(
-    private val movies: List<Movie>,
+     var movies: List<Movie>,
     private val movieClickedListener: (Movie) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
@@ -48,7 +49,7 @@ class MoviesAdapter(
             binding.title.text = movie.title
             Glide
                 .with(binding.root.context)
-                .load(movie.cover)
+                .load("https://image.tmdb.org/t/p/w185/${movie.poster_path}")
                 .into(binding.cover)
         }
     }
