@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import mobi.mele.mymovies.databinding.ActivityMainBinding
+import mobi.mele.mymovies.model.MovieDbClient
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +35,16 @@ class MainActivity : AppCompatActivity() {
         ){ movie ->
                 Toast.makeText(this@MainActivity,movie.title, Toast.LENGTH_SHORT).show()
         }
+
+        thread {
+            val apiKey = this.resources.getString(R.string.api_key)
+            val popularMovies = MovieDbClient.service.listPopularMovies(apiKey)
+            val body = popularMovies.execute().body()
+            if(body != null)
+                Log.d("MainActivity", "Movie: ${body.results.size}")
+        }
+
+        
     }
 
     override fun onDestroy() {
