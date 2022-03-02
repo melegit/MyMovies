@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val moviesAdapter = MoviesAdapter(emptyList()){ movie ->
+        val moviesAdapter = MoviesAdapter(emptyList()) { movie ->
             navigateTo(movie)
         }
         binding.recycler.adapter = moviesAdapter
@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val apiKey = getString(R.string.api_key)
             val popularMovies = MovieDbClient.service.listPopularMovies(apiKey)
-                moviesAdapter.movies = popularMovies.results
-                moviesAdapter.notifyDataSetChanged()
+            moviesAdapter.movies = popularMovies.results
+            moviesAdapter.notifyDataSetChanged()
         }
     }
 
